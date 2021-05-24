@@ -17,10 +17,10 @@ class _HomeViewState extends State<HomeView> {
           children: [
             Expanded(
               child: Center(
-                child: FutureBuilder<List<int>>(
-                  future: controller.lista,
+                child: StreamBuilder<List<int>>(
+                  stream: controller.streamList.stream,
                   builder: (context, snapshot){
-                    if(snapshot.connectionState != ConnectionState.done){
+                    if(snapshot.connectionState != ConnectionState.active){
                       return CircularProgressIndicator();
                     }
                     if(snapshot.hasData){
@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ),
             ),
-            TextButton(
+            ElevatedButton(
               child: Text('load'),
               onPressed: (){
                 setState(() {
